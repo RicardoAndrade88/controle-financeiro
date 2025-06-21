@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Controle Financeiro Pessoal</title>
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Chart.js CDN para o gráfico funcionar -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <div id="controle-botoes">
+      <!-- Botões Modo Escuro e Exportar CSV serão inseridos via JS -->
+      <a href="nova-transacao.html" class="botao">Nova Transação</a>
+    </div>
+  </header>
+
+  <main class="container-principal">
+    <section class="resumo">
+      <div>
+        <h2>Entradas</h2>
+        <p id="entradas">R$ 0,00</p>
+      </div>
+      <div>
+        <h2>Saídas</h2>
+        <p id="saidas">R$ 0,00</p>
+      </div>
+      <div>
+        <h2>Saldo</h2>
+        <p id="saldo">R$ 0,00</p>
+      </div>
+    </section>
+
+    <section>
+      <label for="filtro-categoria">Filtrar por categoria:</label>
+      <select id="filtro-categoria">
+        <option value="">Todas</option>
+        <!-- Opções serão inseridas via JS -->
+      </select>
+    </section>
+
+    <section class="transacoes">
+      <h2>Transações</h2>
+      <ul id="lista-transacoes"></ul>
+    </section>
+
+    <section class="grafico">
+      <h2>Gráfico de Entradas x Saídas</h2>
+      <canvas id="graficoTransacoes" width="300" height="300"></canvas>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

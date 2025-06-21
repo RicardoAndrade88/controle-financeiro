@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nova Transação</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="nova-transacao">
+  <div class="container-form">
+    <header>
+      <h1>Nova Transação</h1>
+      <a href="index.html" class="botao">Voltar</a>
+    </header>
+
+    <form id="form-transacao" novalidate>
+      <label for="descricao">Descrição:</label>
+      <input
+        type="text"
+        id="descricao"
+        name="descricao"
+        placeholder="Ex: Salário, Conta de luz"
+        required
+        autocomplete="off"
+      />
+
+      <label for="valor">Valor (positivo para entrada, negativo para saída):</label>
+      <input
+        type="number"
+        step="0.01"
+        id="valor"
+        name="valor"
+        placeholder="Ex: 1000 ou -50"
+        required
+      />
+
+      <label for="data">Data:</label>
+      <input type="date" id="data" name="data" required />
+
+      <label for="categoria">Categoria:</label>
+      <select id="categoria" name="categoria" required>
+        <option value="">Selecione...</option>
+        <!-- Categorias serão carregadas via JS -->
+      </select>
+
+      <div class="adicionar-categoria">
+        <input
+          type="text"
+          id="nova-categoria"
+          placeholder="Adicionar nova categoria"
+          autocomplete="off"
+        />
+        <button
+          type="button"
+          id="btn-adicionar-categoria"
+          class="botao"
+        >
+          Adicionar
+        </button>
+      </div>
+
+      <button type="submit" class="botao">Salvar</button>
+    </form>
+  </div>
+
+  <script src="js/nova-transacao.js"></script>
+</body>
+</html>

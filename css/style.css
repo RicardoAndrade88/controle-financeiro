@@ -1,0 +1,434 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Corpo e fundo */
+body {
+  background-color: #f9fbfd;
+  color: #333;
+  min-height: 100vh;
+  padding: 25px 30px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Container principal para centralizar e limitar largura */
+.container-principal {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Cabeçalho */
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 12px;
+}
+
+/* Controle de botões no header */
+#controle-botoes {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Botões */
+.botao {
+  background-color: #2d82b7;
+  color: white;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.25s ease, box-shadow 0.3s ease;
+  user-select: none;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 4px 8px rgb(45 130 183 / 0.3);
+}
+
+.botao:hover {
+  background-color: #1f5e7d;
+  box-shadow: 0 6px 14px rgb(31 94 125 / 0.5);
+}
+
+a.botao {
+  display: inline-block;
+}
+
+/* --- Resumo --- */
+.resumo {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.resumo > div {
+  background: white;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.06);
+  border-radius: 16px;
+  flex: 1 1 220px;
+  padding: 30px 35px;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+  position: relative;
+}
+
+.resumo > div:hover {
+  box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);
+}
+
+.resumo h2 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  color: #555;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.resumo p {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #263238;
+}
+
+/* Cores específicas */
+#entradas {
+  color: #27ae60;
+}
+
+#saidas {
+  color: #e74c3c;
+}
+
+#saldo {
+  color: #34495e;
+  font-weight: 900;
+}
+
+/* --- Filtro categoria --- */
+section > label[for="filtro-categoria"] {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #555;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#filtro-categoria {
+  width: 100%;
+  max-width: 280px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #bbb;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: border-color 0.3s ease;
+  background-color: white;
+}
+
+#filtro-categoria:focus {
+  border-color: #2d82b7;
+  outline: none;
+}
+
+/* --- Lista de transações --- */
+.transacoes {
+  background: white;
+  border-radius: 16px;
+  padding: 30px 35px;
+  box-shadow: 0 12px 24px rgb(0 0 0 / 0.07);
+  max-width: 800px;
+  margin: 0 auto 50px auto;
+  transition: box-shadow 0.3s ease;
+}
+
+.transacoes:hover {
+  box-shadow: 0 16px 40px rgb(0 0 0 / 0.10);
+}
+
+.transacoes h2 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+  letter-spacing: 0.07em;
+  font-weight: 800;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+#lista-transacoes {
+  list-style: none;
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 14px;
+}
+
+#lista-transacoes li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  font-size: 1.1rem;
+  color: #444;
+  gap: 12px;
+  flex-wrap: wrap;
+  transition: background-color 0.3s ease;
+  border-radius: 10px;
+}
+
+#lista-transacoes li:hover {
+  background-color: #f0f8ff;
+}
+
+#lista-transacoes li.entrada {
+  border-left: 6px solid #27ae60;
+}
+
+#lista-transacoes li.saida {
+  border-left: 6px solid #e74c3c;
+}
+
+#lista-transacoes li:last-child {
+  border-bottom: none;
+}
+
+/* Botões dentro da lista */
+#lista-transacoes button.edit,
+#lista-transacoes button.delete {
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  user-select: none;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.12);
+}
+
+#lista-transacoes button.edit {
+  background-color: #3498db;
+  color: white;
+}
+
+#lista-transacoes button.edit:hover {
+  background-color: #2874a6;
+}
+
+#lista-transacoes button.delete {
+  background-color: #e74c3c;
+  color: white;
+}
+
+#lista-transacoes button.delete:hover {
+  background-color: #c0392b;
+}
+
+/* --- Gráfico --- */
+.grafico {
+  max-width: 440px;
+  margin: 0 auto 50px auto;
+  background: white;
+  padding: 35px 40px;
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgb(0 0 0 / 0.08);
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.grafico:hover {
+  box-shadow: 0 20px 50px rgb(0 0 0 / 0.12);
+}
+
+.grafico h2 {
+  margin-bottom: 28px;
+  font-weight: 800;
+  color: #34495e;
+  font-size: 1.9rem;
+  letter-spacing: 0.08em;
+}
+
+/* --- Botões no header --- */
+#controle-botoes button.botao {
+  padding: 12px 22px;
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgb(45 130 183 / 0.3);
+}
+
+#controle-botoes button.botao:hover {
+  background-color: #1f5e7d;
+  box-shadow: 0 6px 14px rgb(31 94 125 / 0.5);
+}
+
+/* -------------------------- */
+/* Página nova-transacao.html */
+/* -------------------------- */
+
+body.nova-transacao {
+  background-color: #f4f7f9;
+  padding: 40px 25px;
+  min-height: 100vh;
+  color: #222;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+body.nova-transacao .container-form {
+  background: white;
+  max-width: 480px;
+  width: 100%;
+  padding: 40px 35px;
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgb(0 0 0 / 0.12);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+body.nova-transacao header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+body.nova-transacao header h1 {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #2d82b7;
+  letter-spacing: 0.08em;
+}
+
+body.nova-transacao header a.botao {
+  padding: 10px 18px;
+  font-weight: 700;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgb(45 130 183 / 0.4);
+  text-decoration: none;
+  background-color: #2d82b7;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+body.nova-transacao header a.botao:hover {
+  background-color: #1f5e7d;
+}
+
+body.nova-transacao form label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+body.nova-transacao form input[type="text"],
+body.nova-transacao form input[type="number"],
+body.nova-transacao form input[type="date"],
+body.nova-transacao form select {
+  width: 100%;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  border-radius: 12px;
+  border: 2px solid #bbb;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #222;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: inset 0 2px 5px rgb(0 0 0 / 0.05);
+}
+
+body.nova-transacao form input[type="text"]:focus,
+body.nova-transacao form input[type="number"]:focus,
+body.nova-transacao form input[type="date"]:focus,
+body.nova-transacao form select:focus {
+  border-color: #2d82b7;
+  box-shadow: 0 0 10px rgb(45 130 183 / 0.5);
+  outline: none;
+}
+
+/* Adicionar nova categoria */
+body.nova-transacao .adicionar-categoria {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+body.nova-transacao .adicionar-categoria input {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 2px solid #bbb;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: inset 0 2px 5px rgb(0 0 0 / 0.05);
+}
+
+body.nova-transacao .adicionar-categoria input:focus {
+  border-color: #2d82b7;
+  box-shadow: 0 0 10px rgb(45 130 183 / 0.5);
+  outline: none;
+}
+
+body.nova-transacao .adicionar-categoria button.botao {
+  background-color: #2980b9;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 25px;
+  font-weight: 700;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgb(41 128 185 / 0.5);
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+body.nova-transacao .adicionar-categoria button.botao:hover {
+  background-color: #1f5e7d;
+}
+
+/* Botão salvar */
+body.nova-transacao form button.botao[type="submit"] {
+  width: 100%;
+  padding: 16px 0;
+  font-weight: 800;
+  font-size: 1.3rem;
+  border-radius: 14px;
+  background-color: #27ae60;
+  box-shadow: 0 7px 25px rgb(39 174 96 / 0.6);
+  transition: background-color 0.3s ease;
+}
+
+body.nova-transacao form button.botao[type="submit"]:hover {
+  background-color: #1e8449;
+}
