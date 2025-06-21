@@ -11,6 +11,7 @@ body {
   background-color: #f9fbfd;
   color: #333;
   min-height: 100vh;
+  overflow-x: hidden;
   padding: 25px 30px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -431,4 +432,336 @@ body.nova-transacao form button.botao[type="submit"] {
 
 body.nova-transacao form button.botao[type="submit"]:hover {
   background-color: #1e8449;
+}
+
+body.dark-mode {
+  background-color: #1e1e2f;
+  color: #f0f0f0;
+}
+
+body.dark-mode .resumo > div,
+body.dark-mode .transacoes,
+body.dark-mode .grafico {
+  background-color: #2a2a40;
+  color: #f0f0f0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode h2,
+body.dark-mode label,
+body.dark-mode p,
+body.dark-mode select,
+body.dark-mode input {
+  color: #f0f0f0;
+}
+
+body.dark-mode select,
+body.dark-mode input {
+  background-color: #3a3a50;
+  border-color: #888;
+}
+
+/* Modo escuro - página nova-transacao */
+body.dark-mode.nova-transacao {
+  background-color: #1e1e2f;
+  color: #f0f0f0;
+}
+
+body.dark-mode.nova-transacao .container-form {
+  background-color: #2a2a40;
+  color: #f0f0f0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode.nova-transacao h1,
+body.dark-mode.nova-transacao label {
+  color: #f0f0f0;
+}
+
+body.dark-mode.nova-transacao input,
+body.dark-mode.nova-transacao select {
+  background-color: #3a3a50;
+  border-color: #888;
+  color: #f0f0f0;
+}
+
+body.dark-mode.nova-transacao input:focus,
+body.dark-mode.nova-transacao select:focus {
+  border-color: #2d82b7;
+  box-shadow: 0 0 10px rgba(45, 130, 183, 0.6);
+}
+
+body.dark-mode.nova-transacao .adicionar-categoria input {
+  background-color: #3a3a50;
+  border-color: #888;
+  color: #f0f0f0;
+}
+
+body.dark-mode.nova-transacao .adicionar-categoria input:focus {
+  border-color: #2d82b7;
+  box-shadow: 0 0 10px rgba(45, 130, 183, 0.6);
+}
+
+/* Modo escuro - <select> e opções visíveis */
+body.dark-mode select,
+body.dark-mode input {
+  background-color: #3a3a50;
+  border-color: #888;
+  color: #f0f0f0;
+}
+
+/* Garante que as opções do <select> não fiquem invisíveis */
+body.dark-mode select option {
+  background-color: #3a3a50;
+  color: #f0f0f0;
+}
+
+/* --------- AJUSTES VISUAIS PARA O SELECT --------- */
+
+select {
+  appearance: none;
+  background-color: white;
+  border: 1.5px solid #bbb;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+select:focus {
+  border-color: #2d82b7;
+  outline: none;
+  box-shadow: 0 0 8px rgba(45, 130, 183, 0.5);
+}
+
+select option {
+  background-color: white;
+  color: #333;
+}
+
+body.dark-mode select {
+  background-color: #3a3a50;
+  color: #f0f0f0;
+  border-color: #888;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23f0f0f0' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+}
+
+body.dark-mode select option {
+  background-color: #3a3a50;
+  color: #f0f0f0;
+}
+
+/* --------- INPUT DE ADICIONAR CATEGORIA --------- */
+
+.adicionar-categoria input {
+  appearance: none;
+  background-color: white;
+  border: 2px solid #bbb;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 5px rgb(0 0 0 / 0.05);
+}
+
+.adicionar-categoria input:focus {
+  border-color: #2d82b7;
+  outline: none;
+  box-shadow: 0 0 10px rgba(45, 130, 183, 0.5);
+}
+
+body.dark-mode .adicionar-categoria input {
+  background-color: #3a3a50;
+  color: #f0f0f0;
+  border-color: #888;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* --------- BOTÃO ADICIONAR CATEGORIA --------- */
+
+.adicionar-categoria button.botao {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 25px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(41, 128, 185, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.adicionar-categoria button.botao:hover {
+  background-color: #1f5e7d;
+}
+
+body.dark-mode .adicionar-categoria button.botao {
+  background-color: #1f5e7d;
+  box-shadow: 0 6px 16px rgba(31, 94, 125, 0.6);
+}
+
+body.dark-mode .adicionar-categoria button.botao:hover {
+  background-color: #145173;
+}
+
+/* Modal calculadora */
+.modal-calculadora {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border-radius: 12px;
+  padding: 15px 20px;
+  z-index: 9999;
+  width: 280px;
+  user-select: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.calculadora-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#calc-display {
+  height: 45px;
+  font-size: 1.6rem;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 2px solid #bbb;
+  text-align: right;
+  font-weight: 700;
+  background: #f9f9f9;
+  user-select: text;
+}
+
+.calc-botoes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.calc-botoes button {
+  padding: 14px 0;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #2d82b7;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.calc-botoes button:hover {
+  background-color: #1f5e7d;
+}
+
+.calc-botoes button.operador {
+  background-color: #e67e22;
+}
+
+.calc-botoes button.operador:hover {
+  background-color: #c76c18;
+}
+
+.btn-fechar {
+  grid-column: 1 / span 2;
+  background-color: #e74c3c;
+}
+
+.btn-fechar:hover {
+  background-color: #c0392b;
+}
+
+.btn-igual {
+  grid-column: 3 / span 2;
+  background-color: #27ae60;
+}
+
+.btn-igual:hover {
+  background-color: #1e8449;
+}
+
+/* Para modo escuro */
+body.dark-mode .modal-calculadora {
+  background-color: #2a2a40;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+body.dark-mode #calc-display {
+  background-color: #3a3a50;
+  border-color: #888;
+  color: #f0f0f0;
+}
+
+body.dark-mode .calc-botoes button {
+  background-color: #2980b9;
+}
+
+body.dark-mode .calc-botoes button:hover {
+  background-color: #1f5e7d;
+}
+
+body.dark-mode .calc-botoes button.operador {
+  background-color: #f39c12;
+}
+
+body.dark-mode .calc-botoes button.operador:hover {
+  background-color: #d4880d;
+}
+
+body.dark-mode .btn-fechar {
+  background-color: #c0392b;
+}
+
+body.dark-mode .btn-fechar:hover {
+  background-color: #a62f23;
+}
+
+body.dark-mode .btn-igual {
+  background-color: #27ae60;
+}
+
+body.dark-mode .btn-igual:hover {
+  background-color: #1e8449;
+}
+
+/* Ajuste botão calculadora próximo ao input valor */
+#btn-calculadora {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  transition: filter 0.3s ease;
+}
+
+#btn-calculadora:hover svg {
+  filter: drop-shadow(0 0 3px #2d82b7);
 }

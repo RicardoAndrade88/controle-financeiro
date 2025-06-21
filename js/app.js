@@ -7,7 +7,9 @@ const saldoEl = document.getElementById('saldo');
 const listaTransacoesEl = document.getElementById('lista-transacoes');
 const filtroCategoriaEl = document.getElementById('filtro-categoria');
 const controleBotoesEl = document.getElementById('controle-botoes');
-const graficoCtx = document.getElementById('graficoTransacoes').getContext('2d');
+const graficoCanvas = document.getElementById('graficoTransacoes');
+const graficoCtx = graficoCanvas ? graficoCanvas.getContext('2d') : null;
+const graficoCategoriasCtx = document.getElementById('graficoCategorias').getContext('2d');
 
 let transacoes = JSON.parse(localStorage.getItem('transacoes')) || [];
 let categorias = JSON.parse(localStorage.getItem('categorias')) || [];
@@ -20,18 +22,25 @@ if (categorias.length === 0) {
 
 // Cria e insere os botões no header
 function criarBotoes() {
-  // Botão Modo Escuro
   const btnDark = document.createElement('button');
   btnDark.id = 'toggle-dark-mode';
   btnDark.className = 'botao';
-  btnDark.textContent = 'Modo Escuro';
+
+  // Aplica modo escuro salvo
+  const modoSalvo = localStorage.getItem('modo-escuro');
+  if (modoSalvo === 'true') {
+    document.body.classList.add('dark-mode');
+    btnDark.textContent = 'Modo Claro ☀️';
+  } else {
+    btnDark.textContent = 'Modo Escuro 🌙';
+  }
 
   btnDark.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    btnDark.textContent = document.body.classList.contains('dark-mode') ? 'Modo Claro' : 'Modo Escuro';
+    const isDark = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('modo-escuro', isDark);
+    btnDark.textContent = isDark ? 'Modo Claro ☀️' : 'Modo Escuro 🌙';
   });
 
-  // Botão Exportar CSV
   const btnExportar = document.createElement('button');
   btnExportar.id = 'btn-exportar-csv';
   btnExportar.className = 'botao';
@@ -62,7 +71,6 @@ function atualizarResumo() {
 
 // Preenche filtro categorias
 function popularFiltroCategorias() {
-  // Limpa opções (menos "Todas")
   filtroCategoriaEl.innerHTML = '<option value="">Todas</option>';
   categorias.forEach(cat => {
     const option = document.createElement('option');
@@ -88,7 +96,6 @@ function renderizarTransacoes() {
     const li = document.createElement('li');
     li.classList.add(t.valor > 0 ? 'entrada' : 'saida');
 
-    // Data formatada
     const dataFormatada = new Date(t.data).toLocaleDateString('pt-BR');
 
     li.innerHTML = `
@@ -114,7 +121,7 @@ function excluirTransacao(index) {
   }
 }
 
-// Editar transação (redirecionar para nova-transacao com dados preenchidos)
+// Editar transação
 function editarTransacao(index) {
   localStorage.setItem('transacao-edicao', JSON.stringify({ ...transacoes[index], index }));
   window.location.href = 'nova-transacao.html';
@@ -162,14 +169,19 @@ function configurarEventos() {
   });
 }
 
-// Gráfico Chart.js
+// Gráfico Entradas/Saídas
 let chart;
 
 function atualizarGrafico() {
+  if (!graficoCtx) return;
+
   const totalEntradas = transacoes.filter(t => t.valor > 0).reduce((acc, t) => acc + t.valor, 0);
   const totalSaidas = Math.abs(transacoes.filter(t => t.valor < 0).reduce((acc, t) => acc + t.valor, 0));
 
-  if (chart) chart.destroy();
+  if (totalEntradas === 0 && totalSaidas === 0) {
+    if (chart) chart.destroy();
+    return;
+  }
 
   chart = new Chart(graficoCtx, {
     type: 'doughnut',
@@ -195,6 +207,61 @@ function atualizarGrafico() {
   });
 }
 
+// Gráfico por categoria
+let chartCategorias;
+
+function atualizarGraficoCategorias() {
+  const somaPorCategoria = {};
+  transacoes.forEach(t => {
+    if (!somaPorCategoria[t.categoria]) {
+      somaPorCategoria[t.categoria] = 0;
+    }
+    somaPorCategoria[t.categoria] += t.valor;
+  });
+
+  const labels = Object.keys(somaPorCategoria);
+  const data = labels.map(cat => Math.abs(somaPorCategoria[cat]));
+
+  const cores = [
+    '#3498db', '#9b59b6', '#e67e22', '#1abc9c', '#f39c12',
+    '#e74c3c', '#2ecc71', '#34495e', '#d35400', '#7f8c8d'
+  ];
+
+  if (chartCategorias) chartCategorias.destroy();
+
+  chartCategorias = new Chart(graficoCategoriasCtx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Total por Categoria (R$)',
+        data,
+        backgroundColor: cores.slice(0, labels.length),
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: val => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+          }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ctx.parsed.y.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+          }
+        }
+      }
+    }
+  });
+}
+
 // Inicializar
 function init() {
   criarBotoes();
@@ -203,6 +270,7 @@ function init() {
   renderizarTransacoes();
   configurarEventos();
   atualizarGrafico();
+  atualizarGraficoCategorias();
 }
 
 init();
