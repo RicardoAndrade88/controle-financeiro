@@ -617,16 +617,16 @@ body.dark-mode .adicionar-categoria button.botao:hover {
 /* Modal calculadora */
 .modal-calculadora {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  border-radius: 12px;
-  padding: 15px 20px;
-  z-index: 9999;
-  width: 280px;
-  user-select: none;
+  top: 50px;
+  right: 40px;
+  background-color: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 .hidden {

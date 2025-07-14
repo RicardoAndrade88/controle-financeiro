@@ -125,9 +125,18 @@ function configurarCalculadora() {
   const btnIgual = document.getElementById('btn-igual');
   const botoesCalc = modalCalculadora?.querySelectorAll('.calc-botoes button[data-val]');
 
+  // Fechar com tecla ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modalCalculadora.classList.contains('hidden')) {
+      modalCalculadora.classList.add('hidden');
+    }
+  });
+
+
   if (!btnCalculadora || !modalCalculadora || !calcDisplay || !btnLimpar || !btnFechar || !btnIgual || !botoesCalc) return;
 
   let expressao = '';
+  const valorInput = document.getElementById('valor');
 
   // Abrir modal
   btnCalculadora.addEventListener('click', () => {
@@ -156,28 +165,31 @@ function configurarCalculadora() {
     });
   });
 
-  // Calcular
+  // Calcular e inserir no input
   btnIgual.addEventListener('click', () => {
-    try {
-      if (/^[0-9+\-*/.() ]+$/.test(expressao)) {
-        let resultado = eval(expressao);
-        if (typeof resultado === 'number' && !isNaN(resultado)) {
-          resultado = Math.round((resultado + Number.EPSILON) * 100) / 100;
-          calcDisplay.value = resultado;
-          expressao = resultado.toString();
-        } else {
-          calcDisplay.value = 'Erro';
-          expressao = '';
-        }
+  try {
+    if (/^[0-9+\-*/.() ]+$/.test(expressao)) {
+      let resultado = eval(expressao);
+      if (typeof resultado === 'number' && !isNaN(resultado)) {
+        resultado = Math.round((resultado + Number.EPSILON) * 100) / 100;
+        calcDisplay.value = resultado;
+        expressao = resultado.toString();
+        inserirResultadoNoInput(resultado); // <<< Inserir automaticamente no input
+        modalCalculadora.classList.add('hidden'); // <<< Fechar o modal
       } else {
         calcDisplay.value = 'Erro';
         expressao = '';
       }
-    } catch {
+    } else {
       calcDisplay.value = 'Erro';
       expressao = '';
     }
+  } catch {
+    calcDisplay.value = 'Erro';
+    expressao = '';
+  }
   });
+
 
   // Inserir no input de valor ao pressionar Enter
   calcDisplay.addEventListener('keydown', e => {

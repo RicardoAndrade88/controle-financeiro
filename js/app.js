@@ -26,7 +26,6 @@ function criarBotoes() {
   btnDark.id = 'toggle-dark-mode';
   btnDark.className = 'botao';
 
-  // Aplica modo escuro salvo
   const modoSalvo = localStorage.getItem('modo-escuro');
   if (modoSalvo === 'true') {
     document.body.classList.add('dark-mode');
@@ -54,14 +53,8 @@ function criarBotoes() {
 
 // Atualiza resumo financeiro
 function atualizarResumo() {
-  const entradas = transacoes
-    .filter(t => t.valor > 0)
-    .reduce((acc, t) => acc + t.valor, 0);
-
-  const saidas = transacoes
-    .filter(t => t.valor < 0)
-    .reduce((acc, t) => acc + t.valor, 0);
-
+  const entradas = transacoes.filter(t => t.valor > 0).reduce((acc, t) => acc + t.valor, 0);
+  const saidas = transacoes.filter(t => t.valor < 0).reduce((acc, t) => acc + t.valor, 0);
   const saldo = entradas + saidas;
 
   entradasEl.textContent = entradas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -104,8 +97,8 @@ function renderizarTransacoes() {
       <div style="flex:1; text-align:center;">${t.categoria}</div>
       <div style="flex:1; text-align:right; font-weight:bold;">${t.valor.toLocaleString('pt-BR', {style:'currency', currency:'BRL'})}</div>
       <div style="flex:0 0 auto; display:flex; gap:8px;">
-        <button class="edit botao" data-index="${i}">Editar</button>
-        <button class="delete botao" data-index="${i}">Excluir</button>
+        <button class="edit botao" data-index="${i}" aria-label="Editar transação ${t.descricao}">Editar</button>
+        <button class="delete botao" data-index="${i}" aria-label="Excluir transação ${t.descricao}">Excluir</button>
       </div>
     `;
 
@@ -133,6 +126,7 @@ function salvarEAtualizar() {
   atualizarResumo();
   renderizarTransacoes();
   atualizarGrafico();
+  atualizarGraficoCategorias();
 }
 
 // Exportar CSV
@@ -150,8 +144,9 @@ function exportarCSV() {
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
+  const dataAtual = new Date().toISOString().split('T')[0];
+  a.download = `transacoes-${dataAtual}.csv`;
   a.href = url;
-  a.download = 'transacoes.csv';
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -227,39 +222,44 @@ function atualizarGraficoCategorias() {
     '#e74c3c', '#2ecc71', '#34495e', '#d35400', '#7f8c8d'
   ];
 
-  if (chartCategorias) chartCategorias.destroy();
-
-  chartCategorias = new Chart(graficoCategoriasCtx, {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [{
-        label: 'Total por Categoria (R$)',
-        data,
-        backgroundColor: cores.slice(0, labels.length),
-        borderRadius: 6,
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            callback: val => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-          }
-        }
+  if (chartCategorias) {
+    chartCategorias.data.labels = labels;
+    chartCategorias.data.datasets[0].data = data;
+    chartCategorias.data.datasets[0].backgroundColor = cores.slice(0, labels.length);
+    chartCategorias.update();
+  } else {
+    chartCategorias = new Chart(graficoCategoriasCtx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Total por Categoria (R$)',
+          data,
+          backgroundColor: cores.slice(0, labels.length),
+          borderRadius: 6,
+        }]
       },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => ctx.parsed.y.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: val => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+            }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => ctx.parsed.y.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+            }
           }
         }
       }
-    }
-  });
+    });
+  }
 }
 
 // Inicializar
